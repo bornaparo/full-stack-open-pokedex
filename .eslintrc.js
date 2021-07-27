@@ -3,7 +3,7 @@ module.exports = {
     "browser": true,
     "es6": true,
     "jest/globals": true,
-    "node": true
+    "node": true //da moze citat environment varijable, inace pise da je process not defined ili tako nes
   },
   "extends": [
     "eslint:recommended",
@@ -44,7 +44,7 @@ module.exports = {
     "arrow-spacing": [
       "error", { "before": true, "after": true }
     ],
-    "no-console": 0,
+    "no-console": 0, //tako da ne baca error za console log
     "react/prop-types": 0
   }
 }
