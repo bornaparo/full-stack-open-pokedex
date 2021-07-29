@@ -31,6 +31,8 @@ const App = () => {
           const pokemonId = pokemonList.find(({ name }) => name === routeParams.match.params.name).id
           const previous = pokemonList.find(({ id }) => id === pokemonId - 1)
           const next = pokemonList.find(({ id }) => id === pokemonId + 1)
+          {console.log(pokemonId -1, "curr " + pokemonId, pokemonId+1)}
+          {console.log(previous.name, next.name)}
           return <PokemonPage pokemonList={pokemonList} previous={previous} next={next} />
         }} />
       </Switch>
