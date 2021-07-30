@@ -21,3 +21,9 @@ jobs:
         run: npm run build
       - name: test
         run: npm test
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run rest:e2e #specificira kako runnat test
+          start: npm run start-prod #skripta koja starta server
+          wait-on: http://localhost:5000 #kaze da prije nego se runnaju testovi, server se mora pokrenut na toj adresi
