@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+//nisam stavio da ima .spec u filename-u jer ga onda zbog nekog razloga i jest run-a
+
 describe('Pokedex', function() {
   it('front page can be opened', function() {
     cy.visit('http://localhost:5000')
