@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
 
 jobs:
   simple_deployment_pipeline:
@@ -38,3 +41,4 @@ jobs:
           healthcheck: "https://part11-app.herokuapp.com/health" #kao check neki da vidi ako aplikacija radi nakon deploymenta a da ne moras manualno checkat
           checkstring: "ok" #provjerava ako je ovo string koji vraca taj check
           rollbackonhealthcheckfailed: true #automatski ce se vratit na zadnju verziju koja je radila ako ne pass-a ovaj healthcheck
+
