@@ -44,8 +44,8 @@ jobs:
           rollbackonhealthcheckfailed: true #automatski ce se vratit na zadnju verziju koja je radila ako ne pass-a ovaj healthcheck
       - uses: actions/checkout@v2 #za svaki slucaj jer je njemu bacao error
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' }} #samo kad se push-a na master branch, inace ti ne trebaju verzije (tagovi)
-        if: ${{ contains(join(toJson(github.event.commits.*.message), ' '), 'skip') == false }} #ako je false tj poruka nema u sebi "skip", onda ce se tek tag napravit
+        if: ${{ github.event_name == 'push' && contains(join(toJson(github.event.commits.*.message), ' '), 'skip') == false }} #samo kad se push-a na master branch, inace ti ne trebaju verzije (tagovi) i ako commit poruka u sebi nema rijec "skip"
+        #if: ${{ contains(join(toJson(github.event.commits.*.message), ' '), 'skip') == false }} #ako je false tj poruka nema u sebi "skip", onda ce se tek tag napravit
         uses: anothrNick/github-tag-action@1.33.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
