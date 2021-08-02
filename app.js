@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.static('dist'))
 
-app.get('/health', (req, res) => {//za healthcheck, ako aplikacija radi nakon deploymenta 
+app.get('/health', (req, res) => {//za healthcheck, da automatski vidi ako aplikacija radi nakon deploymenta tako sta ode na ovaj endpoint
   res.send('ok')
 })
 
