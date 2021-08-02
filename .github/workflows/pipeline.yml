@@ -41,7 +41,7 @@ jobs:
           heroku_email: "bornaparo@gmail.com"
           healthcheck: "https://part11-app.herokuapp.com/health" #kao check neki da vidi ako aplikacija radi nakon deploymenta a da ne moras manualno checkat
           checkstring: "ok" #provjerava ako je ovo string koji vraca taj check
-          rollbackonhealthcheckfailed: true #automatski ce se vratit na zadnju verziju koja je radila ako ne pass-a ovaj healthcheck
+          rollbackonhealthcheckfailed: true #automatski ce se vratit na zadnju verziju koja je radila ako ne pass-a ovaj healthcheck .
       - uses: actions/checkout@v2 #za svaki slucaj jer je njemu bacao error
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push' && contains(join(toJson(github.event.commits.*.message), ' '), 'skip') == false }} #samo kad se push-a na master branch, inace ti ne trebaju verzije (tagovi) i ako commit poruka u sebi nema rijec "skip"
