@@ -35,6 +35,6 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "part11-app" #Must be unique in Heroku
           heroku_email: "bornaparo@gmail.com"
-          healthcheck: "https://part11-app.herokuapp.com/health" #kao check neki da vidi ako aplikacija radi nakon deploymenta
-          checkstring: "ok"
-          rollbackonhealthcheckfailed: true
+          healthcheck: "https://part11-app.herokuapp.com/health" #kao check neki da vidi ako aplikacija radi nakon deploymenta a da ne moras manualno checkat
+          checkstring: "ok" #provjerava ako je ovo string koji vraca taj check
+          rollbackonhealthcheckfailed: true #automatski ce se vratit na zadnju verziju koja je radila ako ne pass-a ovaj healthcheck
