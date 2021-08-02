@@ -24,5 +24,6 @@ jobs:
         run: echo "$COMMIT_MESSAGES"
       - name: provjera commit poruke
         env:
-          COMMIT_PROVJERA: ${{ toJson(github.event.commits.*.message).join(" ") }}
-        run: echo "$COMMIT_PROVJERA"
+          #COMMIT_PROVJERA: ${{ toJson(github.event.commits.*.message) }}
+          X: ${{ join(toJson(github.event.commits.*.message), " ") }}
+        run: echo "$X"
