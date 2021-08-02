@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
 
 jobs:
   simple_deployment_pipeline:
@@ -29,6 +32,7 @@ jobs:
           wait-on: http://localhost:5000 #kaze da prije nego se runnaju testovi, server se mora pokrenut na toj adresi
 
       - name: Deploy to heroku
+        if: ${{ github.event_name == 'push' }} #da se deploya samo ako je push a ne pull_request npr, kad se pull_request merge-a, automatski se triggera push
         #uses: actions/checkout@v2 #prije bilo bez ovog
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
@@ -38,3 +42,4 @@ jobs:
           healthcheck: "https://part11-app.herokuapp.com/health" #kao check neki da vidi ako aplikacija radi nakon deploymenta a da ne moras manualno checkat
           checkstring: "ok" #provjerava ako je ovo string koji vraca taj check
           rollbackonhealthcheckfailed: true #automatski ce se vratit na zadnju verziju koja je radila ako ne pass-a ovaj healthcheck
+
