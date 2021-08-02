@@ -25,5 +25,6 @@ jobs:
       - name: provjera commit poruke
         env:
           #COMMIT_PROVJERA: ${{ toJson(github.event.commits.*.message) }}
-          X: ${{ join(toJson(github.event.commits.*.message), ' ') }}
+          #X: ${{ join(toJson(github.event.commits.*.message), ' ') }}
+          X: ${{ contains(join(toJson(github.event.commits.*.message), ' '), 'skip') }}
         run: echo "$X"
