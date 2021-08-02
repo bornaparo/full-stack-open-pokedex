@@ -32,6 +32,7 @@ jobs:
           wait-on: http://localhost:5000 #kaze da prije nego se runnaju testovi, server se mora pokrenut na toj adresi
 
       - name: Deploy to heroku
+        if: ${{ github.event_name == 'push' }} #da se deploya samo ako je push a ne pull_request npr, kad se pull_request merge-a, automatski se triggera push
         #uses: actions/checkout@v2 #prije bilo bez ovog
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
