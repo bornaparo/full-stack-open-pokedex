@@ -22,3 +22,7 @@ jobs:
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
+      - name: provjera commit poruke
+        env:
+          COMMIT_PROVJERA: ${{ toJson(github.event.commits.*.message).join(" ").contains("skip") }}
+        run: echo "$COMMIT_PROVJERA"
