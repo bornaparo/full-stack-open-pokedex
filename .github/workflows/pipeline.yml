@@ -45,6 +45,7 @@ jobs:
       - uses: actions/checkout@v2 #za svaki slucaj jer je njemu bacao error
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push' }} #samo kad se push-a na master branch, inace ti ne trebaju verzije (tagovi)
+        if: ${{ contains(join(toJson(github.event.commits.*.message), ' '), 'skip') == false }} #ako je false tj poruka nema u sebi "skip", onda ce se tek tag napravit
         uses: anothrNick/github-tag-action@1.33.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
