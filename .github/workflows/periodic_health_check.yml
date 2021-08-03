@@ -2,7 +2,7 @@ name: Periodic health check
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/5 * * * *" #triggera se svakih 5 minuta svakog sata svakog dana svakog mjeseca u svakoj godini
 
 jobs:
   periodic_health_check:
