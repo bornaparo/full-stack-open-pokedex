@@ -22,12 +22,12 @@ jobs:
         run: npm run eslint
       - name: build
         run: npm run build
-      - name: test #maknuo ove testove tako da se brze deploya na heroku,, dok ne skuzim u cemu je problem s herokuom onda cu ih vratit
+      - name: test
         run: npm test
       - name: e2e tests
         uses: cypress-io/github-action@v2 #prije bilo bez crtice ('-')
         with:
-          command: npm run test:e2e #specificira kako runnat test
+          command: npm run test:e2e #specificira kako runnat test, to je skripta iz package.json
           start: npm run start-prod #skripta koja starta server
           wait-on: http://localhost:5000 #kaze da prije nego se runnaju testovi, server se mora pokrenut na toj adresi
 
@@ -44,9 +44,17 @@ jobs:
           rollbackonhealthcheckfailed: true #automatski ce se vratit na zadnju verziju koja je radila ako ne pass-a ovaj healthcheck .
       - uses: actions/checkout@v2 #za svaki slucaj jer je njemu bacao error
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' && contains(join(toJson(github.event.commits.*.message), ' '), 'skip') == false }} #samo kad se push-a na master branch, inace ti ne trebaju verzije (tagovi) i ako commit poruka u sebi nema rijec "skip"
+        if: ${{ github.event_name == 'push' && contains(join(toJson(github.event.commits.*.message), ' '), 'skip') == false }} #samo kad se push-a na master branch, inace ti ne trebaju verzije (tagovi) i ako commit poruka u sebi nema rijec "skip", ovdje moras koristit '' a ne "" (baca error)
         #if: ${{ contains(join(toJson(github.event.commits.*.message), ' '), 'skip') == false }} #ako je false tj poruka nema u sebi "skip", onda ce se tek tag napravit
         uses: anothrNick/github-tag-action@1.33.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+      - name: slack msg
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: ${{ success() || failure() }} # Pick up events even if the job fails or is canceled.
