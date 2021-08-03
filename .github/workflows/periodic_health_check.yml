@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  periodic_health_check: 
+  periodic_health_check:
     runs-on: ubuntu-18.04
     steps:
       #- uses: actions/checkout@v2
